@@ -74,9 +74,7 @@
       <label class="chk"><input type="checkbox" id="existant"> Client déjà dans mon parc</label>
       <label for="format">Format</label>
       <select id="format"><option value="sur site">Sur site</option><option value="en visio">En visio</option><option value="par téléphone">Par téléphone</option></select>
-      <label for="c1">Créneau 1</label><input id="c1" type="datetime-local">
-      <label for="c2">Créneau 2</label><input id="c2" type="datetime-local">
-      <label for="c3">Créneau 3 (facultatif)</label><input id="c3" type="datetime-local">
+      <p class="hint">Après avoir inséré le texte, ajoute le <b>Sondage de planification</b> d'Outlook juste en dessous pour proposer tes créneaux.</p>
     </div>
 
     <div class="grp" data-g="devis">
@@ -180,16 +178,7 @@ function build(){
     } else {
       blocks.push({p:`Comme convenu, je vous propose de ${quoi} pour échanger sur la sécurité de ${site}.`});
     }
-    const slots = ['c1','c2','c3'].map(id => fmtDT($(id).value)).filter(Boolean);
-    if(slots.length > 1){
-      blocks.push({p:`Je vous propose les créneaux suivants :`});
-      blocks.push({box:slots.map(esc)});
-      blocks.push({p:`Dites-moi ce qui vous arrange le mieux.`});
-    } else if(slots.length === 1){
-      blocks.push({p:`Seriez-vous disponible le ${slots[0].charAt(0).toLowerCase()+slots[0].slice(1)} ? Sinon, dites-moi ce qui vous arrange.`});
-    } else {
-      blocks.push({p:`Quelles seraient vos disponibilités dans les prochains jours ?`});
-    }
+    blocks.push({p:`Je vous propose quelques créneaux ci-dessous : il vous suffit de cliquer sur celui qui vous convient et vous recevrez directement l'invitation.`});
   } else {
     const ref = v('ref'), objet = v('objet'), montant = v('montant'), validite = v('validite');
     subject = `Devis ${B}${ref ? ' '+ref : ''}${soc ? ' / '+soc : ''}`;
