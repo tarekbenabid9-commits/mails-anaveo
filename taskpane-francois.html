@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mails Anaveo</title>
+<script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Saira+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--prim:#22252A;--acc:#E3F20A;--bg:#F2F3F1;--line:#E0E2DE;--mute:#6b7079}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Nunito Sans','Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--prim);font-size:13.5px}
+  header{background:var(--prim);padding:14px 16px;border-bottom:4px solid var(--acc)}
+  .brand{display:flex;align-items:center;gap:8px}
+  .brand img{width:24px;height:24px;border-radius:3px}
+  .brand span{color:var(--acc);font-weight:800;font-size:17px}
+  header h1{margin:8px 0 0;font-family:'Saira Condensed',sans-serif;font-size:24px;font-weight:800;text-transform:uppercase;color:#fff;line-height:1}
+  header h1 em{font-style:normal;color:var(--acc)}
+  main{padding:14px}
+  .types{display:grid;gap:8px;margin-bottom:12px}
+  .type{background:#fff;border:2px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+  .type b{display:block;font-family:'Saira Condensed',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;line-height:1.1}
+  .type span{color:var(--mute);font-size:12px}
+  .type.on{background:var(--prim);border-color:var(--prim);color:#fff}
+  .type.on b{color:var(--acc)} .type.on span{color:#c9ccd1}
+  .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px}
+  h2{margin:0 0 6px;font-family:'Saira Condensed',sans-serif;font-size:17px;text-transform:uppercase;display:inline-block;border-bottom:3px solid var(--acc)}
+  label{display:block;font-size:12px;font-weight:600;margin:8px 0 3px;color:#3a3f46}
+  input,select{width:100%;padding:7px 9px;border:1px solid #cfd3cc;border-radius:7px;font:inherit;background:#fff;color:inherit}
+  input:focus,select:focus{outline:none;border-color:var(--prim)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .chk{display:flex;align-items:center;gap:7px;margin-top:10px;font-weight:600;font-size:12.5px}
+  .chk input{width:auto}
+  .grp{display:none}.grp.on{display:block}
+  .btn{width:100%;border:0;border-radius:999px;padding:12px;font:inherit;font-weight:800;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;background:var(--acc);color:var(--prim);font-size:14px}
+  .btn:disabled{opacity:.5;cursor:default}
+  .msg{margin-top:10px;font-size:12.5px;min-height:18px}
+  .msg.ok{color:#2f6b16}.msg.err{color:#a1261b}
+  details{margin-top:4px}
+  summary{cursor:pointer;font-weight:700;font-size:12.5px}
+  .preview{border:1px dashed #cfd3cc;border-radius:8px;padding:10px;background:#fff;margin-top:8px;font-size:12px;overflow:hidden}
+  .preview *{max-width:100%}
+  .hint{color:var(--mute);font-size:11.5px;margin-top:8px;line-height:1.45}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><img src="icon-64.png" alt=""><span>anaveo</span></div>
+  <h1>Mails <em>préfaits</em></h1>
+</header>
+<main>
+  <div class="types">
+    <button class="type on" data-t="prospection"><b>Prospection</b><span>Premier contact avec un prospect</span></button>
+    <button class="type" data-t="rdv"><b>Demande de rendez-vous</b><span>Proposer des créneaux</span></button>
+    <button class="type" data-t="devis"><b>Remise de devis</b><span>Envoyer une proposition chiffrée</span></button>
+  </div>
+
+  <div class="card">
+    <h2>Contact</h2>
+    <label for="civ">Civilité</label>
+    <select id="civ"><option value="Madame">Madame</option><option value="Monsieur">Monsieur</option><option value="">—</option></select>
+    <div class="row">
+      <div><label for="prenom">Prénom</label><input id="prenom" placeholder="Julie"></div>
+      <div><label for="nom">Nom</label><input id="nom" placeholder="Dupont"></div>
+    </div>
+    <label for="societe">Société / enseigne</label><input id="societe" placeholder="Groupe Martin">
+    <label for="to">E-mail du contact (facultatif)</label>
+    <input id="to" type="email" placeholder="julie.dupont@exemple.fr">
+
+    <div class="grp" data-g="rdv">
+      <label class="chk"><input type="checkbox" id="existant"> Client déjà suivi chez Anaveo</label>
+      <label for="format">Format</label>
+      <select id="format"><option value="sur site">Sur site</option><option value="en visio">En visio</option><option value="par téléphone">Par téléphone</option></select>
+      <p class="hint">Après avoir inséré le texte, ajoute le <b>Sondage de planification</b> d'Outlook juste en dessous pour proposer tes créneaux.</p>
+    </div>
+
+    <div class="grp" data-g="devis">
+      <label for="contexte">Contexte</label>
+      <select id="contexte">
+        <option value="Comme convenu lors de notre rendez-vous">Après un rendez-vous</option>
+        <option value="Suite à votre demande">Après une demande du client</option>
+        <option value="Suite à notre échange téléphonique">Après un appel</option>
+      </select>
+      <div class="row">
+        <div><label for="ref">N° de devis</label><input id="ref" placeholder="DV-2026-0142"></div>
+        <div><label for="montant">Montant HT</label><input id="montant" placeholder="4 850 €"></div>
+      </div>
+      <label for="objet">Objet du devis</label>
+      <input id="objet" placeholder="l'installation d'un système de vidéoprotection">
+      <div class="row">
+        <div><label for="validite">Validité</label><input id="validite" placeholder="30 jours"></div>
+        <div><label for="relance">Relance le</label><input id="relance" type="date"></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" id="insert" type="button">Insérer dans le mail</button>
+  <div class="msg" id="msg"></div>
+
+  <div class="card" style="margin-top:12px">
+    <details>
+      <summary>Voir l'aperçu</summary>
+      <div class="preview" id="preview"></div>
+    </details>
+    <details>
+      <summary>Réglages</summary>
+      <label class="chk"><input type="checkbox" id="inclHead" data-save> Bandeau anaveo en haut du mail</label>
+      <label class="chk"><input type="checkbox" id="setSubj" data-save> Remplir l'objet du mail</label>
+    </details>
+    <p class="hint">Le texte s'insère tout en haut du mail, au-dessus de ta signature. Si tu cliques deux fois par erreur, fais Ctrl+Z.</p>
+  </div>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const BASE = location.href.replace(/[^/]*([?#].*)?$/, '');
+const LOGO_NAME = 'anaveo-logo.png';
+const P = '#22252A', A = '#E3F20A';
+const FONT = "'Segoe UI',Arial,Helvetica,sans-serif";
+let type = 'prospection';
+
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem('anvfg_'+k); return v === null ? d : v; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem('anvfg_'+k, v); }catch(e){} }
+};
+const defaults = { inclHead:'1', setSubj:'1' };
+document.querySelectorAll('[data-save]').forEach(el => {
+  const v = store.get(el.id, defaults[el.id] ?? '');
+  if(el.type === 'checkbox') el.checked = v === '1'; else el.value = v;
+  el.addEventListener('input', () => { store.set(el.id, el.type === 'checkbox' ? (el.checked?'1':'0') : el.value); render(); });
+});
+
+function esc(s){ return String(s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function de(x){ return /^[aeiouyhàâäéèêëîïôöûü]/i.test(x) ? "d'"+x : 'de '+x; }
+function v(id){ return $(id).value.trim(); }
+function fmtDT(val){
+  if(!val) return ''; const d = new Date(val); if(isNaN(d)) return '';
+  const day = d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+  const m = d.getMinutes();
+  return day.charAt(0).toUpperCase()+day.slice(1)+' à '+d.getHours()+'h'+(m?String(m).padStart(2,'0'):'');
+}
+function fmtD(val){
+  if(!val) return ''; const d = new Date(val+'T12:00'); if(isNaN(d)) return '';
+  return d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+}
+function greeting(){
+  const civ = v('civ'), p = v('prenom'), n = v('nom');
+  if(civ && n) return `Bonjour ${civ} ${n},`;
+  if(p || n) return `Bonjour ${(p+' '+n).trim()},`;
+  return 'Bonjour,';
+}
+
+function build(){
+  const soc = v('societe');
+  const B = 'Anaveo';
+  let subject = '', blocks = [];
+  if(type === 'prospection'){
+    subject = soc ? `${B} / ${soc}` : `Sécurité de vos sites`;
+    blocks = [
+      {p:`Je suis responsable grands comptes chez ${B}.`},
+      {p:`Nous accompagnons les enseignes et les réseaux multisites partout en France sur la vidéoprotection, l'alarme intrusion, le contrôle d'accès et la télésurveillance, de l'installation jusqu'à la maintenance.`},
+      {p:`Je serais ravi d'échanger avec vous sur la sécurité de vos sites${soc ? ' '+de(soc) : ''}. Auriez-vous un moment dans les prochaines semaines ?`}
+    ];
+  } else if(type === 'rdv'){
+    subject = soc ? `Rendez-vous ${B} / ${soc}` : `Proposition de rendez-vous`;
+    const fmt = v('format');
+    const quoi = fmt === 'sur site' ? 'passer vous voir' : (fmt === 'en visio' ? 'organiser un échange en visio' : 'vous appeler');
+    if($('existant').checked){
+      blocks.push({p:`Je suis responsable grands comptes chez ${B} et je reprends le suivi de votre compte.`});
+      blocks.push({p:`J'aimerais ${quoi} pour faire connaissance et faire le point sur vos installations.`});
+    } else {
+      blocks.push({p:`Comme convenu, je vous propose de ${quoi} pour échanger sur la sécurité de vos sites.`});
+    }
+    blocks.push({p:`Je vous propose quelques créneaux ci-dessous : il vous suffit de cliquer sur celui qui vous convient et vous recevrez directement l'invitation.`});
+  } else {
+    const ref = v('ref'), objet = v('objet'), montant = v('montant'), validite = v('validite');
+    subject = `Devis ${B}${ref ? ' '+ref : ''}${soc ? ' / '+soc : ''}`;
+    blocks.push({p:`${v('contexte')}, vous trouverez ci-joint notre proposition${objet ? ' pour '+objet : ''}.`});
+    const lines = [];
+    if(ref) lines.push(`Référence : ${esc(ref)}`);
+    if(montant) lines.push(`Montant : ${esc(montant)} HT`);
+    if(validite) lines.push(`Validité : ${esc(validite)}`);
+    if(lines.length) blocks.push({box:lines});
+    const r = fmtD($('relance').value);
+    blocks.push({p:`Je reste disponible si vous avez des questions ou si vous souhaitez ajuster certains points. ${r ? `Je vous rappellerai le ${r} pour en parler.` : `Je vous rappellerai dans quelques jours pour en parler.`}`});
+  }
+  return {subject, blocks};
+}
+
+function toHtml(b, logoSrc){
+  let h = `<div style="font-family:${FONT};font-size:14px;line-height:1.55;color:${P};max-width:620px">`;
+  if($('inclHead').checked){
+    h += `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;max-width:620px;margin-bottom:20px"><tr><td style="background:${P};padding:14px 20px">`
+       + `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse"><tr>`
+       + `<td style="padding:0 10px 0 0;vertical-align:middle"><img src="${logoSrc}" width="30" height="30" alt="" style="display:block;width:30px;height:30px;border:0"></td>`
+       + `<td style="vertical-align:middle;color:${A};font-size:22px;font-weight:bold;font-family:${FONT};letter-spacing:.3px">anaveo</td>`
+       + `</tr></table></td></tr><tr><td style="height:4px;background:${A};font-size:0;line-height:0">&nbsp;</td></tr></table>`;
+  }
+  h += `<p style="margin:0 0 14px">${esc(greeting())}</p>`;
+  for(const bl of b.blocks){
+    if(bl.p) h += `<p style="margin:0 0 14px">${esc(bl.p)}</p>`;
+    if(bl.box) h += `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin:0 0 14px"><tr><td style="border-left:4px solid ${A};background:#F4F5F0;padding:10px 16px;font-family:${FONT};font-size:14px;line-height:1.7">${bl.box.join('<br>')}</td></tr></table>`;
+  }
+  h += `<p style="margin:0 0 14px">Bien cordialement,</p><p style="margin:0">&nbsp;</p></div>`;
+  return h;
+}
+
+function render(){
+  document.querySelectorAll('.grp').forEach(g => g.classList.toggle('on', g.dataset.g === type));
+  $('preview').innerHTML = toHtml(build(), BASE + 'logo-mail.png');
+}
+
+function say(t, cls){ const m = $('msg'); m.textContent = t; m.className = 'msg ' + (cls||''); }
+function call(fn){ return new Promise((res, rej) => fn(r => r.status === Office.AsyncResultStatus.Succeeded ? res(r.value) : rej(r.error))); }
+function supports(v){ try{ return Office.context.requirements.isSetSupported('Mailbox', v); }catch(e){ return false; } }
+
+async function logoBase64(){
+  const r = await fetch(BASE + 'logo-mail.png'); const blob = await r.blob();
+  return await new Promise(res => { const fr = new FileReader(); fr.onload = () => res(String(fr.result).split(',')[1]); fr.readAsDataURL(blob); });
+}
+
+async function insert(){
+  const item = Office.context.mailbox.item;
+  const btn = $('insert'); btn.disabled = true; say('Insertion…');
+  try{
+    const b = build();
+    let logoSrc = BASE + 'logo-mail.png';
+    if($('inclHead').checked && supports('1.8')){
+      try{
+        const atts = await call(cb => item.getAttachmentsAsync(cb));
+        const already = (atts||[]).some(a => a.name === LOGO_NAME);
+        if(!already){
+          const b64 = await logoBase64();
+          await call(cb => item.addFileAttachmentFromBase64Async(b64, LOGO_NAME, {isInline:true}, cb));
+        }
+        logoSrc = 'cid:' + LOGO_NAME;
+      }catch(e){ /* repli : image hébergée */ }
+    }
+    await call(cb => item.body.prependAsync(toHtml(b, logoSrc), {coercionType: Office.CoercionType.Html}, cb));
+    if($('setSubj').checked) await call(cb => item.subject.setAsync(b.subject, cb));
+    const to = v('to');
+    if(to) await call(cb => item.to.addAsync([to], cb));
+    say('Mail inséré ✓', 'ok');
+  }catch(e){
+    say('Oups, ça n\'a pas marché : ' + (e && e.message ? e.message : e), 'err');
+  }finally{ btn.disabled = false; }
+}
+
+document.querySelectorAll('.type').forEach(btn => btn.addEventListener('click', () => {
+  type = btn.dataset.t;
+  document.querySelectorAll('.type').forEach(x => x.classList.toggle('on', x === btn));
+  render();
+}));
+document.querySelectorAll('input:not([data-save]), select').forEach(el => { el.addEventListener('input', render); el.addEventListener('change', render); });
+$('insert').addEventListener('click', insert);
+render();
+Office.onReady(() => {});
+</script>
+</body>
+</html>
